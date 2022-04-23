@@ -16,6 +16,7 @@ int main(){
 	std::cin>>program;
 	char *ip = program;
 	std::vector<char*> loopstack = {};
+	int dpidx=0;
 
 	while(*ip){
 		switch(*ip){ 
@@ -28,15 +29,17 @@ int main(){
 				break;
 			case '>':
 				*dp++;
+				dpidx+=1;
 				break;
 			case '<':
 				*dp--;
+				dpidx-=1;
 				break;
 			case '.':
 				std::cout<<char(*dp);
 				break;
 			case ',':
-				std::cin>>dp[0]; //accepts one byte of data from command-line | strictly accepts ascii, converts to int
+				std::cin>>array[dpidx]; //accepts one byte of data from command-line | strictly accepts ascii, converts to int
 				break;
 			case '[':
 				loopstack.push_back(ip);
@@ -52,6 +55,17 @@ int main(){
 		}
 		*ip++;
 	}
+
+	std::cout<<"\n======DEBUG=======";
+	std::cout<<"\nArray: ";
+
+	for(int i=0; i<25; i++){
+		std::cout<<array[i]<<" ";
+	}
+
+	std::cout<<"\nData Pointer: "<<dpidx;
+	std::cout<<"\nElement at Data Pointer: "<<*dp<<"\n";
+	std::cout<<"====================\n";
 
 	return 0;
 }
