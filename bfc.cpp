@@ -1,19 +1,31 @@
 #include<iostream>
+#include<string.h>
 #include<vector>
 
-/*
-BRAINFUCK INTERPRETOR IN C++
-
-
-To Quit: 0
-*/
-
-int main(){
+int main(int argc, char* argv[]){
+	
 	//declare array, data pointer, input program, instruction pointer
 	int array[30000] = {0};
 	int *dp = array;
-	char program[1000] = {};
-	std::cin>>program;
+	//read from file
+	char *arg = argv[1];
+	char fileName[100];
+	char program[1000];
+	char *pReadCounter = program;
+	int n = strlen(argv[1]);
+	for(int i=0; i<n; i++){
+	fileName[i] = *arg;
+	*arg++;
+	}
+	//std::cout<<fileName;
+	FILE *fp;
+	fp = fopen(fileName, "r");
+	char ch;
+	while((ch=getc(fp))!=EOF){
+	*pReadCounter = ch;
+	//std::cout<<*pReadCounter;
+	*pReadCounter++;
+	}
 	char *ip = program;
 	std::vector<char*> loopstack = {};
 	int dpidx=0;
@@ -65,7 +77,7 @@ int main(){
 
 	std::cout<<"\nData Pointer: "<<dpidx;
 	std::cout<<"\nElement at Data Pointer: "<<*dp<<"\n";
-	std::cout<<"====================\n";
+	std::cout<<"==================\n";
 
 	return 0;
 }
